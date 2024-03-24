@@ -30,11 +30,11 @@
 #     corresponding individuals' solo submission counts.
 #   - "n_submissions_incl_collaboration": same as n_submissions, but 
 #     collaborations do count towards any of the volunteer's future solo 
-#     submissions. For collaborative projects, this measure is the same as 
+#     submissions. For collaborative submissions, this measure is the same as 
 #     n_submissions.
 #   - "is_first_submission": whether the submission was the volunteer's (or 
 #     specific combination of volunteers') first VFSG submission (i.e., whether
-#     n_submissions == 1). For non-collaborative projects, a volunteer's first 
+#     n_submissions == 1). For non-collaborative submissions, a volunteer's first 
 #     solo submission is considered their first submission, even if they had
 #     previously submitted a collaborative vis.
 #   - "is_first_submission_incl_collaboration": same as is_first_submission, but
@@ -54,18 +54,18 @@
 #     determining the first project date of the corresponding individual 
 #     volunteers.
 #
-# See solo and collaborative projects of "adam crahen" and "pooja gandhi" as a 
-# good example of how solo and collaborative projects impact n_submissions vs. 
+# See solo and collaborative submissions of "adam crahen" and "pooja gandhi" as a 
+# good example of how solo and collaborative submissions impact n_submissions vs. 
 # n_submissions_incl_collaboration
 
 # Note that the max n_submissions_incl_collaborative does NOT give the total
 # the total number of vis (solo and collaborative) a volunteer has 
-# submitted if the volunteer's last (or only) projects were collaborative 
-# projects. As such, n_submissions_incl_collaborative should NOT be used to 
+# submitted if the volunteer's last (or only) submissions were collaborative 
+# submissions As such, n_submissions_incl_collaborative should NOT be used to 
 # compare the total number of submissions of different volunteers.
 #
 # However, the max n_submissions of each volunteer does give the total number of
-# SOLO vis submitted by each volunteer (or, for collaborative projects, the 
+# SOLO vis submitted by each volunteer (or, for collaborative submissions, the 
 # number of vis submitted by that specific combination of volunteers).
 #
 # For first submission and first project date measures: In this dataset, the 
@@ -74,7 +74,7 @@
 #
 # NOT INCLUDED in this dataset:
 #   - Stats (e.g., first project dates) for any volunteers who ONLY participated 
-#     in collaborative projects
+#     in collaborative submissions
 #   - Total number of submissions (incl. collaborative vis) of each volunteer
 #
 #
@@ -133,7 +133,7 @@ data_submissions <- data_submissions |>
           name_of_volunteer)
   )
 
-# Find collaborative projects and compute associated stats ----
+# Find collaborative submissions and compute associated stats ----
 
 data_submissions <- data_submissions |>
   mutate(
@@ -148,7 +148,7 @@ data_submissions <- data_submissions |>
     # Collaborations
     is_collaboration = n_volunteers > 1,
     # Create clean version of volunteer names.
-    # Returns sorted, comma separated names of all volunteers for each project.
+    # Returns sorted, comma separated names of all volunteers for each submissions
     # Allows easy identification of repeat collaborations.
     name_of_volunteer_clean = unlist(lapply(volunteers_list, paste, collapse = ', '))
   )
@@ -159,23 +159,23 @@ n_distinct(data_submissions$name_of_volunteer_clean)
 
 # Compute submission number for each volunteer/collaboration ----
 
-# n_submissions (solo and collaborative projects treated as completely separate 
+# n_submissions (solo and collaborative submissions treated as completely separate 
 # "volunteers")
 data_submissions <- data_submissions |>
   group_by(name_of_volunteer_clean) |>
   mutate(n_submissions = 1:n() ) |>
   ungroup()
 
-# n_submissions_incl_collaboration (collaborative projects also increment each
+# n_submissions_incl_collaboration (collaborative submissions also increment each
 # individual volunteer's number of submissions)
 # (suggestions for how to do this computation without a loop would be welcome!)
 data_submissions <- data_submissions |>
   mutate(n_submissions_incl_collaboration = n_submissions)
-n_projects <- nrow(data_submissions)
-for (i in 1:n_projects) {
-  # If not a collaborative project, count number of times that the volunteer 
+n <- nrow(data_submissions)
+for (i in 1:n) {
+  # If not a collaborative submission, count number of times that the volunteer 
   # name has occurred in the list of volunteer names up to and including the 
-  # time of that project
+  # time of that submission
   if (!data_submissions$is_collaboration[i]) {
     data_submissions$n_submissions_incl_collaboration[i] = 
       sum(
@@ -219,8 +219,8 @@ data_submissions <- data_submissions |>
 # start date (will only impact one volunteer in this dataset)
 data_submissions <- data_submissions |>
   mutate(volunteer_first_project_date_incl_collaboration = volunteer_first_project_date) 
-for (i in 1:n_projects) {
-  # If not a collaborative project, find date of first project that the 
+for (i in 1:n) {
+  # If not a collaborative submission, find date of first project that the 
   # volunteer was involved in (solo or collaborative submission)
   if (!data_submissions$is_collaboration[i]) {
     idx <- which(
@@ -276,7 +276,7 @@ View(
     select(var_list)
 )
 
-# Collaborative projects only
+# Collaborative submissions only
 # check that any repeat collaborations are correctly identified
 View(
   data_submissions |> 

@@ -1,5 +1,7 @@
 # Visualise submissions and charity data for each charity (one plot per charity)
 
+# Some of this code is rough - refactored code TBA
+
 # Set up----
 rm(list = ls())
 library(dplyr)
@@ -27,7 +29,7 @@ source('lib/lib_colours.R')
 # charities
 file_sdg <- file.path('data', 'Charity - SDG.xlsx')
 file_submissions <- file.path('data', 'vfsg_all_submissions_clean.xlsx')
-data_charities <- get_charity_topics_and_sdg(
+data_charities <- prep_charity_data(
   file_submissions = file_submissions,
   file_sdg = file_sdg
 )
@@ -37,30 +39,29 @@ file_submissions <- file.path('data', 'vfsg_all_submissions_clean.xlsx')
 data_submissions <- read_xlsx(file_submissions)
 
 # Colors ----
-
 plot_clrs <- get_plot_clrs()
 
-# Get data limits for each plot ----
+# Get data limits for each plot (optional, exploratory step) ----
 
 n_projects <- max(data_submissions$project_id)
-# x_min <- numeric(n_projects)
-# y_min <- numeric(n_projects)
-# x_max <- numeric(n_projects)
-# y_max <- numeric(n_projects)
-# 
-# for (i in 46) {
-#   art <- charity_data_art(
-#     project = i,
-#     data_charities,
-#     data_submissions,
-#     plot_clrs
-#   )
-#   
-#   x_min[i] <- art$x_min
-#   y_min[i] <- art$y_min
-#   x_max[i] <- art$x_max
-#   y_max[i] <- art$y_max
-# }
+x_min <- numeric(n_projects)
+y_min <- numeric(n_projects)
+x_max <- numeric(n_projects)
+y_max <- numeric(n_projects)
+
+for (i in 1:n_projects) {
+  art <- charity_data_art(
+    project = i,
+    data_charities,
+    data_submissions,
+    plot_clrs
+  )
+
+  x_min[i] <- art$x_min
+  y_min[i] <- art$y_min
+  x_max[i] <- art$x_max
+  y_max[i] <- art$y_max
+}
 
 # Set same limits for all plots and plot ----
 x_margins <- 0.5 
@@ -91,8 +92,7 @@ for (i in 1:n_projects) {
   sz1 <- 32
   sz2 <- 18
   sz3 <- 12
-  sz4 <- 22
-  
+
   font_family <- "Cooper Hewitt R"
   register_font(
     name = font_family,
@@ -131,6 +131,7 @@ for (i in 1:n_projects) {
   vfsg_width <- 0.525
   vfsg_y_shift <- 0.07
   
+  # Add text to plot
   p <- art$p
   p_with_text <- p + 
     geom_textbox(name_data, mapping = aes(x = x, y = y, label = label),
@@ -174,5 +175,5 @@ for (i in 1:n_projects) {
   
   # Save ---
   plot_dir <- 'vfsg_plots'
-  save_charity_plot(plot_dir, p_with_text, i, res = 100) 
+  save_charity_plot(plot_dir, p_with_text, i, res = 300) 
 }

@@ -78,7 +78,7 @@ charity_data_art <- function(
   clr_palette$lines <- colorRampPalette(clrs$lines) 
   
   # make polygons
-  n_sides <- data_charities$n_sdg[project] + 3
+  n_sides <- data_charities$n_followers_scaled[project]
   polygon_data <- gen_nested_polygon_data(
     n_sides = n_sides,
     n_rep = n_sides * 4,

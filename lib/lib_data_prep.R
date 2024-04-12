@@ -7,9 +7,10 @@ library('tidyr')
 library('stringr')
 
 source('lib/lib_colours.R')
+source('lib/lib_helper.R')
 
 # Load and organise charity data
-get_charity_topics_and_sdg <- function(file_submissions, file_sdg) {
+prep_charity_data <- function(file_submissions, file_sdg) {
   
   # Load SDG data
   data_sdg <- read_xlsx(file_sdg)
@@ -21,16 +22,25 @@ get_charity_topics_and_sdg <- function(file_submissions, file_sdg) {
     mutate(goals_num = as.numeric(str_replace(goals_num, 'GOAL ', '')))
   
   # Compute number of SDG for each project
+  # Also get and format number of followers
   data_n_sdg <- data_sdg |>
-    select(project_id, name_of_charity_project, goals_num) |>
-    group_by(project_id, name_of_charity_project) |>
+    select(project_id, name_of_charity_project, goals_num, n_twitter_followers) |>
+    group_by(project_id, name_of_charity_project, n_twitter_followers) |>
     summarise(goals_num = list(goals_num)) |>
-    mutate(n_sdg = unlist(lapply(goals_num, length)))
+    mutate(n_sdg = unlist(lapply(goals_num, length))) |>
+    # Log number of followers
+    mutate(log_n_followers = log(n_twitter_followers + 10))
+  
+  # Scale and round number of followers
+  data_n_sdg$n_followers_scaled <- round(scale_values(
+    data_n_sdg$log_n_followers, new_min = 4, new_max = 10
+  ))
   
   # Load submissions data (note: use clean submissions data)
   data_submissions <- read_xlsx(file_submissions)
   
-  # Get topic of each project from submissions data; clean and organise topics
+  # Get topic of each project from submissions data; clean and organise topics;
+  # get formatted project date
   data_topic <- data_submissions |>
     # remove "2" from names of charities with repeat projects
     # (esp. since added inconsistently for some projects)
@@ -73,13 +83,18 @@ get_charity_topics_and_sdg <- function(file_submissions, file_sdg) {
     mutate(
       date_string = format(date_of_project, "%B %Y")
     ) |>
-    distinct(project_id, name_of_charity_project, date_string, topic, topic_general)
+    distinct(
+      project_id, name_of_charity_project, date_string, topic, topic_general
+    )
   
   # Join tibbles
   data_charities <- left_join(data_n_sdg, data_topic, by = 'project_id')
   data_charities <- data_charities |>
     mutate(charity_name = name_of_charity_project.y) |>
-    select(project_id, charity_name, date_string, goals_num, n_sdg, topic, topic_general)
+    select(
+      project_id, charity_name, date_string, goals_num, n_sdg, topic, topic_general,
+      n_twitter_followers, n_followers_scaled
+    )
   
   # Clean up charity names; add breaks for plotting
   data_charities <- data_charities |>
@@ -96,7 +111,7 @@ get_charity_topics_and_sdg <- function(file_submissions, file_sdg) {
         charity_name == "United Nations in Papua New Guinea" ~
           "United Nations in<br>Papua New Guinea",
         charity_name == "Tap Elderly Women's Wisdom for Youth" ~
-          "Tap Elderly Women's Wisdom<br>for Youth",
+          "Tap Elderly Women's<br>Wisdom for Youth",
         charity_name == "Physicalizing Data for a Better World" ~
           "VFSG: Physicalizing Data<br>for a Better World",
         .default = charity_name

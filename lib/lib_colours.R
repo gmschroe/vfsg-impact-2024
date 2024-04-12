@@ -8,8 +8,7 @@ get_plot_clrs <- function() {
   # '#19292B','#1E3538'
   
   plot_clrs$rays <- c('#F0E7C9') 
-  # '#F0D889'
-  
+
   plot_clrs$margins <- c('#F0EFEB')
   
   return(plot_clrs)

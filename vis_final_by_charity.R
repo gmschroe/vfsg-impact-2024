@@ -88,6 +88,8 @@ for (i in 1:n_projects) {
   )
 
   # Text ---
+  # TODO: implement text layers as functions
+  
   project <- i
   sz1 <- 32
   sz2 <- 18
@@ -96,8 +98,8 @@ for (i in 1:n_projects) {
   font_family <- "Cooper Hewitt R"
   register_font(
     name = font_family,
-    plain = '/Users/gmschroe/Library/Fonts/CooperHewitt-Light.otf',
-    bold = '/Users/gmschroe/Library/Fonts/CooperHewitt-Book.otf',
+    plain = '/Users/gmschroe/Library/Fonts/CooperHewitt-Book.otf',
+    bold = '/Users/gmschroe/Library/Fonts/CooperHewitt-Medium.otf',
     bolditalic = '/Users/gmschroe/Library/Fonts/CooperHewitt-MediumItalic.otf'
   )
   
@@ -128,7 +130,7 @@ for (i in 1:n_projects) {
     label = glue('<b style="font-size:{sz2}pt;">*{data_charities$date_string[project]}*</b>')
   )
   
-  vfsg_width <- 0.525
+  vfsg_width <- 0.535
   vfsg_y_shift <- 0.07
   
   # Add text to plot
@@ -177,3 +179,5 @@ for (i in 1:n_projects) {
   plot_dir <- 'vfsg_plots'
   save_charity_plot(plot_dir, p_with_text, i, res = 300) 
 }
+
+

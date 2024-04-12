@@ -27,36 +27,6 @@ make_ray <- function(
   return(ray_data)
 }
 
-# Make one ray of beacon, composed of points drawn from a beta distribution ----
-# INCOMPLETE
-make_points_ray <- function(
-    r1, # inner (start) radius
-    r2, # outer (stop) radius
-    theta, # width angle, in radians
-    phi, # rotation angle (clockwise), in radians
-    n_pts, # n points
-    alpha = 1.5, # alpha parameter for beta distribution
-    beta = 1.5, # beta parameter for beta distribution
-    seed_x = 0, # seed for drawing from beta distribution for x values
-    seed_y = 0 # seed for drawing from uniform distribution for y values
-) {
-  
-  # Beta distribution for initial x values 
-  set.seed(seed_x)
-  x0 <- (rbeta(n_pts, alpha, beta) - 0.5) * 2 # center at 0 between -1 and 1 
-  
-  # Draw y values from uniform distribution between r1 and r2
-  set.seed(seed_y)
-  y0 <- runif(n_pts, r1, r2)
-  
-  # Scale width (x) based on y to form ray 
-  x0 <- x0 * y0
-  
-  # Normalise x0 values to fit between desired width 
-  
-  
-}
-
 # Generate rotation angles for rays----
 gen_ray_angles <- function(
     data, # tibble with "theta" variable for ray widths

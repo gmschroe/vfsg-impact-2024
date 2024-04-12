@@ -39,7 +39,7 @@ The colour of each shape is determined by the project’s topic. I grouped the p
 
 Example of the each above categories, from left to right:
 
-<img src = "vfsg_plots/project3.png" width="100">  <img src = "vfsg_plots/project44.png" width="100">  <img src = "vfsg_plots/project42.png" width="100">  <img src = "vfsg_plots/project20.png" width="100">  <img src = "vfsg_plots/project29.png" width="100">  <img src = "vfsg_plots/project26.png" width="100">
+<img src = "vfsg_plots/project3.png" width="100">  <img src = "vfsg_plots/project44.png" width="100">  <img src = "vfsg_plots/project42.png" width="100">  <img src = "vfsg_plots/project20.png" width="100">  <img src = "vfsg_plots/project36.png" width="100">  <img src = "vfsg_plots/project26.png" width="100">
 
 
 

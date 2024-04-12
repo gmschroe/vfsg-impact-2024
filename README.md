@@ -8,6 +8,9 @@ I used the [projects brief's](https://www.vizforsocialgood.com/join-a-project/20
 
 Here are two of my favourite pieces of the two projects I participated in last year:
 
+<img src = "vfsg_plots/project45.png" width="500">
+
+<img src = "vfsg_plots/project46.png" width="500">
 
 All project visualisations are in the [vfsg_plots](https://github.com/gmschroe/vfsg-impact-2024/tree/main/vfsg_plots) folder of this repository, and I will also add them to a gallery on my website in the near future.
 
@@ -15,9 +18,9 @@ All project visualisations are in the [vfsg_plots](https://github.com/gmschroe/v
 
 Data art is not designed to be the most effective at encoding or analysing data - for example, it’s difficult to directly compare the number of visualisations submitted for different projects using these illustrations. However, I wanted the data encoding to be apparent so each piece provides a general impression of the project's data.
 
-
 Each submitted data visualisation is represented by one ray:
 
+<img src = "vfsg_plots/legend_submissions.png" width="600">
 
 The corresponding non-profit for each project is represented by a geometric shape created by layering many regular polygons with the same number of sides. The number of sides is determined by the non-profit’s follower count on social media (more followers = more sides) as a rough approximation of its reach and recognisability.
 
@@ -38,9 +41,24 @@ The colour of each shape is determined by the project’s topic. I grouped the p
 
 ### Previous projects using VFSG data
 
+<img src = "vfsg_plots/project33.png" width="500">
+
+<img src = "vfsg_plots/project38.png" width="500">
+
 ### VFSG’s first and latest projects
 
+<img src = "vfsg_plots/project1.png" width="500">
+
+<img src = "vfsg_plots/project48.png" width="500">
+
 ### The project with the highest number of submissions
+
+<img src = "vfsg_plots/project39.png" width="500">
+
+### The first project featuring presented visualisations
+
+<img src = "vfsg_plots/project41.png" width="500">
+
 
 ## Data cleaning and analysis
 

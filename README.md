@@ -6,7 +6,7 @@ This Viz For Social Good (VFSG) project focused on VFSG’s own data on voluntee
 I used the [projects brief's](https://www.vizforsocialgood.com/join-a-project/2024/visualizing-data-for-a-better-world) description of VFSG’s visualisations as “beacon\[s\] of change” as inspiration. For each project, the volunteers' visualisations are represented by rays of light that illuminate the mission and impact of the project’s non-profit partner (represented by the layered geometric shape).
 
 
-Here are two of my favourite pieces of the two projects I participated in last year:
+Here are the pieces for the two projects I participated in last year:
 
 <img src = "vfsg_plots/project45.png" width="500">
 

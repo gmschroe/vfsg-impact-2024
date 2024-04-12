@@ -15,3 +15,68 @@ get_plot_clrs <- function() {
   return(plot_clrs)
 
 }
+
+get_polygon_clrs <- function() {
+  clrs <- list()
+  # education
+  # clrs[['education']] <- c(
+  #   '#392566',
+  #            '#551f56',
+  #            '#631e45',
+  #            '#682536',
+  #            '#662f2c'
+  # )
+  clrs[['education']] <- c(
+    '#392566',
+    '#5b215b',
+    '#6f234e',
+    '#7b2c41',
+    '#803a37'
+  )
+  
+  # environment
+  clrs[['environment']] <- c(
+    '#243f59',
+             '#004a61',
+             '#005460',
+             '#005d55',
+             '#126442'
+  )
+  
+  # health
+  clrs[['health']] <- c(
+    '#312056',
+             '#1e3265',
+             '#00416d',
+             '#004f71',
+             '#095c72'
+  )
+  
+  # infrastructure and sustainability
+  clrs[['sustainability']] <- c(
+    '#274519',
+             '#3d4f1c',
+             '#525820',
+             '#696127',
+             '#806930'
+  )
+  
+  # rights
+  clrs[['rights']] <- c(
+    '#1b3659',
+    '#333761',
+    '#4b3665',
+    '#623464',
+    '#78315e')
+    
+  # voices
+  clrs[['voices']] <- c(
+    '#662f2c',
+             '#713627',
+             '#783f20',
+             '#7c4b17',
+             '#7d570b'
+  )
+  
+  return(clrs)
+}

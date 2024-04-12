@@ -6,6 +6,8 @@ library('janitor')
 library('tidyr')
 library('stringr')
 
+source('lib/lib_colours.R')
+
 # Load and organise charity data
 get_charity_topics_and_sdg <- function(file_submissions, file_sdg) {
   
@@ -49,16 +51,21 @@ get_charity_topics_and_sdg <- function(file_submissions, file_sdg) {
     # Collapse "Environmental Impact" and "Conservation" into "Environment and Conservation"
     mutate(
       topic_general = case_when(
-        (topic == 'Energy') | (topic == 'Energy/ Sustainability') |
-          (topic == 'Sanitation') | (topic == 'Water management') | 
-          (topic == 'Infrastructures') ~ 'Infrastructure and Resources',
-        (topic == 'Environmental Impact') | 
-          (topic == 'Conservation') ~ "Environment and Conservation",
-        (topic == 'Homelessness') | (topic == 'Financial support') | 
-          (topic == 'Human Rights') | (topic == 'Gender Equality') | 
-          (topic == 'Recycling') | 
-          (topic == 'Crisis') ~ 'Welfare, Rights, and Equality',
-        (topic == 'Data') | (topic == 'Sustainable Development') ~ 'Supporting Goals',
+        topic %in% c(
+          'Energy/ Sustainability', 'Energy', 'Sanitation', 'Water management', 
+          'Infrastructures', 'Sustainable Development'
+        ) ~ 'Infrastructure, resources, and sustainability',
+        topic %in% c(
+          'Environmental Impact', 'Conservation'
+        ) ~ "Environment and conservation",
+        topic %in% c(
+          'Homelessness', 'Financial support', 'Human Rights', 'Gender Equality',
+          'Recycling', 'Crisis', 'Children and Youth'
+        ) ~ 'Welfare, rights, and equality',
+        name_of_charity_project == "Fondation Follereau" ~ 'Welfare, rights, and equality',
+        name_of_charity_project %in% c(
+          "Video Volunteers", "Viz For Social Good"
+          ) ~ 'Amplifying voices',
         .default = topic
       )
     ) |>
@@ -70,13 +77,41 @@ get_charity_topics_and_sdg <- function(file_submissions, file_sdg) {
     mutate(charity_name = name_of_charity_project.y) |>
     select(project_id, charity_name, goals_num, n_sdg, topic, topic_general)
   
-  # Clean up charity names
+  # Clean up charity names; add breaks for plotting
   data_charities <- data_charities |>
     mutate(
       charity_name = case_when(
         charity_name == "Centro de Pensamiento Estratégico Internacional (Cepei)" ~
           'Centro de Pensamiento Estratégico Internacional',
+        charity_name == "Gord Downie & Chanie Wenjack Fund" ~ 
+          "Gord Downie &<br>Chanie Wenjack Fund",
+        charity_name == "Inter-American Development Bank" ~
+          "Inter-American<br>Development Bank",
+        charity_name == "African Youth Mentorship Network" ~
+          "African Youth<br>Mentorship Network",
+        charity_name == "United Nations in Papua New Guinea" ~
+          "United Nations in<br>Papua New Guinea",
+        charity_name == "Tap Elderly Women's Wisdom for Youth" ~
+          "Tap Elderly<br>Women's Wisdom for Youth",
+        charity_name == "Physicalizing Data for a Better World" ~
+          "VFSG: Physicalizing Data<br>for a Better World",
         .default = charity_name
+      )
+    )
+  
+  # Add colors based on topic
+  clrs <- get_polygon_clrs()
+  data_charities <- data_charities |>
+    mutate(
+      clrs  = case_when(
+        topic_general == 'Health' ~ list(clrs$health),
+        topic_general == 'Education' ~ list(clrs$education),
+        topic_general == 'Amplifying voices' ~ list(clrs$voices),
+        topic_general == 'Infrastructure, resources, and sustainability' ~ list(clrs$sustainability),
+        topic_general == 'Welfare, rights, and equality' ~ list(clrs$rights),
+        topic_general == "Environment and conservation" ~ list(clrs$environment),
+        .default = NA
+        
       )
     )
   return(data_charities)

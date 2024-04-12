@@ -8,9 +8,36 @@ stretch_colour_palette <- function(clrs) {
   n_clrs <- length(clrs)
   clrs_stretched <- c()
   for (i in 1:n_clrs) {
-    clrs_stretched <- c(clrs_stretched, rep(clrs[i], i))
+    clrs_stretched <- c(clrs_stretched, rep(clrs[i], i * i))
   }
   return(clrs_stretched)
+}
+
+# Geom for VFSG logo ----
+vfsg_logo_layer <- function(
+  vfsg_path, 
+  xmin,
+  xmax,
+  ymin,
+  ymax,
+  alpha = 1
+) {
+  
+  vfsg_png <- readPNG(vfsg_path)
+  
+  vfsg_alpha <- vfsg_png[,,4]
+  vfsg_alpha[vfsg_alpha > 0] <- vfsg_alpha[vfsg_alpha > 0] * alpha
+  vfsg_png[,,4] <- vfsg_alpha
+  
+  vfsg_layer <- annotation_raster(
+    vfsg_png, 
+    ymin = ymin,
+    ymax = ymax,
+    xmin = xmin,
+    xmax = xmax
+  )
+
+  return(vfsg_layer)
 }
 
 # Visualise data for one charity ----
@@ -19,7 +46,6 @@ charity_data_art <- function(
     data_charities, # charity data, cleaned
     data_submissions, # submissions data, cleaned
     plot_clrs, # named list with $rays and $bg
-    polygon_clrs, # colors for polygons (at least 3)
     axis_lim = NA,
     x_shift = 0, # for shifting x coordinates
     y_shift = 0, # for shifting y coordinates
@@ -40,8 +66,9 @@ charity_data_art <- function(
   
   
   # -- Charities layer --
-  
+
   # colors for polygons
+  polygon_clrs <- unlist(data_charities$clrs[project])
   n_clrs <- length(polygon_clrs)
   clrs <- list()
   clr_palette <- list()
@@ -70,7 +97,7 @@ charity_data_art <- function(
   )
   
   # dither polygons
-  p_polygon <- with_ordered_dither(
+  p_polygon <- with_halftone_dither(
     p_polygon, 
     map_size = polygon_dither_map_size, 
     levels = polygon_dither_levels
@@ -132,8 +159,7 @@ charity_data_art <- function(
     data = bg_data,
     mapping = aes(x = x + x_shift, y = y + y_shift),
     fill = plot_clrs$bg,
-    colour = NA,
-    inherit_aes = FALSE
+    colour = NA
   )
   
   # -- Plot --
@@ -154,11 +180,13 @@ charity_data_art <- function(
     theme(
       plot.background = element_rect(
         fill = plot_clrs$margins, 
-        colour = plot_clrs$marings)
+        colour = plot_clrs$margins)
     ) +
-    scale_x_continuous(limits = c(x_min + x_shift - x_margins, x_max + x_shift + x_margins),
+    scale_x_continuous(limits = c(x_min + x_shift - x_margins, 
+                                  x_max + x_shift + x_margins),
                        expand = c(0, 0)) +
-    scale_y_continuous(limits = c(y_min + y_shift - y_margins/2, y_max + y_shift + y_margins),
+    scale_y_continuous(limits = c(y_min + y_shift - y_margins/2, 
+                                  y_max + y_shift + y_margins),
                        expand = c(0, 0))
   
   art$x_min = x_min
@@ -166,4 +194,24 @@ charity_data_art <- function(
   art$y_min = y_min
   art$y_max = y_max
   return(art)
+}
+
+# Save plot ----
+
+save_charity_plot <- function(
+    plot_dir, 
+    plt,
+    project,
+    width = 21,
+    height = 29.7,
+    res = 600) 
+{
+  
+  ggsave(
+    file.path(plot_dir,glue::glue('project{project}.png')), 
+    width = width, 
+    height = height, 
+    units = "cm", dpi = res
+  )
+
 }

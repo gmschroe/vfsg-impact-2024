@@ -28,7 +28,7 @@ The corresponding non-profit for each project is represented by a geometric shap
 
 *Tap Elderly Women's Wisdom for Youth, with a little over a 100 followers on Twitter (X), vs. UNICEF, with over 9 million followers.*
 
-The colour of each shape is determined by the project’s topic. I grouped the provided topics into six broader categories:
+The colour of each shape is determined by the project’s primary topic. I grouped the provided topics into six broader categories:
 
 - Education (pink/orange)
 - Amplifying voices (i.e., broadcasting the work and missions of other people or organisations across multiple categories) (yellow orange)

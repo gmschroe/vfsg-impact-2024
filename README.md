@@ -22,7 +22,7 @@ Each submitted data visualisation is represented by one ray:
 
 <img src = "vfsg_plots/legend_submissions.png" width="600">
 
-The corresponding non-profit for each project is represented by a geometric shape created by layering many regular polygons with the same number of sides. The number of sides is determined by the non-profit’s follower count on social media (more followers = more sides) as a rough approximation of its reach and recognisability. Smaller non-profits often benefit the most from VFSG's work since they often lack the resources for a data analysis team. 
+The corresponding non-profit for each project is represented by a geometric shape created by layering many regular polygons with the same number of sides. The number of sides is determined by the non-profit’s follower count on social media (more followers = more sides) as a rough approximation of its reach and recognisability. Smaller non-profits often benefit the most from VFSG's work since they often lack the resources for an internal data analysis team. 
 
 <img src = "vfsg_plots/project40.png" width="300">   <img src = "vfsg_plots/project13.png" width="300">
 

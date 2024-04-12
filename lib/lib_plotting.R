@@ -13,7 +13,7 @@ stretch_colour_palette <- function(clrs) {
   return(clrs_stretched)
 }
 
-# Geom for VFSG logo ----
+# Layer for VFSG logo ----
 vfsg_logo_layer <- function(
   vfsg_path, 
   xmin,

@@ -69,13 +69,17 @@ get_charity_topics_and_sdg <- function(file_submissions, file_sdg) {
         .default = topic
       )
     ) |>
-    distinct(project_id, name_of_charity_project, topic, topic_general)
+    # Add date as name of month and year
+    mutate(
+      date_string = format(date_of_project, "%B %Y")
+    ) |>
+    distinct(project_id, name_of_charity_project, date_string, topic, topic_general)
   
   # Join tibbles
   data_charities <- left_join(data_n_sdg, data_topic, by = 'project_id')
   data_charities <- data_charities |>
     mutate(charity_name = name_of_charity_project.y) |>
-    select(project_id, charity_name, goals_num, n_sdg, topic, topic_general)
+    select(project_id, charity_name, date_string, goals_num, n_sdg, topic, topic_general)
   
   # Clean up charity names; add breaks for plotting
   data_charities <- data_charities |>
@@ -92,7 +96,7 @@ get_charity_topics_and_sdg <- function(file_submissions, file_sdg) {
         charity_name == "United Nations in Papua New Guinea" ~
           "United Nations in<br>Papua New Guinea",
         charity_name == "Tap Elderly Women's Wisdom for Youth" ~
-          "Tap Elderly<br>Women's Wisdom for Youth",
+          "Tap Elderly Women's Wisdom<br>for Youth",
         charity_name == "Physicalizing Data for a Better World" ~
           "VFSG: Physicalizing Data<br>for a Better World",
         .default = charity_name

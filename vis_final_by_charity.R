@@ -14,6 +14,7 @@ library(ggtext)
 library(systemfonts)
 library(glue)
 library(png)
+library(lubridate)
 
 source('lib/lib_data_prep.R')
 source('lib/lib_polygons.R')
@@ -90,12 +91,14 @@ for (i in 1:n_projects) {
   sz1 <- 32
   sz2 <- 18
   sz3 <- 12
+  sz4 <- 22
   
   font_family <- "Cooper Hewitt R"
   register_font(
     name = font_family,
     plain = '/Users/gmschroe/Library/Fonts/CooperHewitt-Light.otf',
-    bold = '/Users/gmschroe/Library/Fonts/CooperHewitt-Book.otf'
+    bold = '/Users/gmschroe/Library/Fonts/CooperHewitt-Book.otf',
+    bolditalic = '/Users/gmschroe/Library/Fonts/CooperHewitt-MediumItalic.otf'
   )
   
   name <- data_charities$charity_name[project]
@@ -117,6 +120,12 @@ for (i in 1:n_projects) {
     x = art$x_max - 0.65,
     y = art$y_min - 0.1,
     label = details
+  )
+  
+  date_data <- tibble(
+    x = art$x_min,
+    y = art$y_min - 0.1,
+    label = glue('<b style="font-size:{sz2}pt;">*{data_charities$date_string[project]}*</b>')
   )
   
   vfsg_width <- 0.525
@@ -145,6 +154,15 @@ for (i in 1:n_projects) {
                  vjust = 1, valign = 1, hjust = 1, halign = 1,
                  lineheight = 1.4
                  ) +
+    geom_textbox(date_data, mapping = aes(x = x, y = y, label = label),
+                 family = font_family, 
+                 colour = plot_clrs$bg,
+                 inherit.aes = FALSE,
+                 box.colour = NA, fill = NA,     
+                 width = unit(10, 'cm'),
+                 box.padding = unit(rep(0, 4), 'pt'),
+                 vjust = 1, valign = 1, hjust = 0, halign = 0,
+                 lineheight = 1.4) +
     # vfsg_logo
     vfsg_logo_layer(
       file.path('data','vfsg_logo.png'),

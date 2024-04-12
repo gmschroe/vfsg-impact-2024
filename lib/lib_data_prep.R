@@ -113,7 +113,7 @@ prep_charity_data <- function(file_submissions, file_sdg) {
         charity_name == "Tap Elderly Women's Wisdom for Youth" ~
           "Tap Elderly Women's<br>Wisdom for Youth",
         charity_name == "Physicalizing Data for a Better World" ~
-          "VFSG: Physicalizing Data<br>for a Better World",
+          "VFSG: Physicalizing<br>Data for a Better World",
         .default = charity_name
       )
     )

@@ -22,17 +22,30 @@ Each submitted data visualisation is represented by one ray:
 
 <img src = "vfsg_plots/legend_submissions.png" width="600">
 
-The corresponding non-profit for each project is represented by a geometric shape created by layering many regular polygons with the same number of sides. The number of sides is determined by the non-profit’s follower count on social media (more followers = more sides) as a rough approximation of its reach and recognisability.
+The corresponding non-profit for each project is represented by a geometric shape created by layering many regular polygons with the same number of sides. The number of sides is determined by the non-profit’s follower count on social media (more followers = more sides) as a rough approximation of its reach and recognisability. Smaller non-profits often benefit the most from VFSG's work since they often lack the resources for a data analysis team. 
 
+<img src = "vfsg_plots/project40.png" width="300">   <img src = "vfsg_plots/project13.png" width="300">
+
+*Tap Elderly Women's Wisdom for Youth, with a little over a 100 followers on Twitter (X), vs. UNICEF, with over 9 million followers.*
 
 The colour of each shape is determined by the project’s topic. I grouped the provided topics into six broader categories:
 
-- Welfare, rights, and equality (purple)
-- Health (blue)
 - Education (pink/orange)
+- Amplifying voices (i.e., broadcasting the work and missions of other people or organisations across multiple categories) (yellow orange)
 - Infrastructure, resources, and sustainability (yellow)
 - Environment and conservation (teal/green)
-- Amplifying voices (i.e., broadcasting the work and missions of other people or organisations across multiple of the above categories) (yellow orange)
+- Health (blue)
+- Welfare, rights, and equality (purple)
+
+Example of the each above categories, from left to right:
+
+<img src = "vfsg_plots/project3.png" width="100">
+<img src = "vfsg_plots/project44.png" width="100">
+<img src = "vfsg_plots/project42.png" width="100">
+<img src = "vfsg_plots/project20.png" width="100">
+<img src = "vfsg_plots/project29.png" width="100">
+<img src = "vfsg_plots/project26.png" width="100">
+
 
 
 (proper legend for the charities TBA!)

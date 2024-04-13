@@ -37,7 +37,7 @@ The colour of each shape is determined by the project’s primary topic. I group
 - Health (blue)
 - Welfare, rights, and equality (purple)
 
-Example of the each above categories, from left to right:
+Examples of the above categories, from left to right:
 
 <img src = "vfsg_plots/project3.png" width="100">  <img src = "vfsg_plots/project44.png" width="100">  <img src = "vfsg_plots/project42.png" width="100">  <img src = "vfsg_plots/project20.png" width="100">  <img src = "vfsg_plots/project36.png" width="100">  <img src = "vfsg_plots/project26.png" width="100">
 

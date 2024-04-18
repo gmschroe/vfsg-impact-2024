@@ -45,10 +45,10 @@ get_polygon_clrs <- function() {
   # health
   clrs[['health']] <- c(
     '#312056',
-             '#1e3265',
-             '#00416d',
-             '#004f71',
-             '#095c72'
+    '#233569',
+    '#0b4777',
+    '#005980',
+    '#0b6a85'
   )
   
   # infrastructure and sustainability

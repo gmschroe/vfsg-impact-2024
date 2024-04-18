@@ -12,7 +12,7 @@ Here are the pieces for the two projects I participated in last year:
 
 <img src = "vfsg_plots/project46.png" width="500">
 
-All project visualisations are in the [vfsg_plots](https://github.com/gmschroe/vfsg-impact-2024/tree/main/vfsg_plots) folder of this repository, and I will also add them to a gallery on my website in the near future.
+All project visualisations are in the [vfsg_plots](https://github.com/gmschroe/vfsg-impact-2024/tree/main/vfsg_plots) folder of this repository, and there is also a gallery of the projects on [my website](https://www.gmschroeder.com/data_vis/vfsg-impact/).
 
 ## How to Read
 
